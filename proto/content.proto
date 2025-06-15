@@ -1,0 +1,192 @@
+syntax = "proto3";
+
+package content;
+
+service ContentService {
+  rpc CreateArtist(CreateArtistRequest) returns (ArtistResponse);
+  rpc GetArtist(GetArtistRequest) returns (ArtistResponse);
+  rpc UpdateArtist(UpdateArtistRequest) returns (ArtistResponse);
+  rpc DeleteArtist(DeleteArtistRequest) returns (DeleteResponse);
+  rpc ListArtists(ListArtistsRequest) returns (ListArtistsResponse);
+
+  // Album RPCs
+  rpc CreateAlbum(CreateAlbumRequest) returns (AlbumResponse);
+  rpc GetAlbum(GetAlbumRequest) returns (AlbumResponse);
+  rpc UpdateAlbum(UpdateAlbumRequest) returns (AlbumResponse);
+  rpc DeleteAlbum(DeleteAlbumRequest) returns (DeleteResponse);
+  rpc ListAlbumsByArtist(ListAlbumsByArtistRequest) returns (ListAlbumsResponse);
+
+  // Track RPCs
+  rpc CreateTrack(CreateTrackRequest) returns (TrackResponse);
+  rpc GetTrack(GetTrackRequest) returns (TrackResponse);
+  rpc UpdateTrack(UpdateTrackRequest) returns (TrackResponse);
+  rpc DeleteTrack(DeleteTrackRequest) returns (DeleteResponse);
+  rpc ListTracksByAlbum(ListTracksByAlbumRequest) returns (ListTracksResponse);
+
+  // Utility RPC
+  rpc IncrementTrackPlayCount(IncrementTrackPlayCountRequest) returns (IncrementTrackPlayCountResponse);
+}
+
+message DeleteResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Artist Messages
+message Artist {
+  string artist_id = 1; // MongoDB _id as string
+  string name = 2;
+  string bio = 3;
+  string image = 4; // URL to artist's image
+  string created_at = 5; // ISO string
+}
+
+message CreateArtistRequest {
+  string name = 1;
+  string bio = 2;
+  string image = 3;
+}
+
+message GetArtistRequest {
+  string artist_id = 1; // Artist ID
+}
+
+message UpdateArtistRequest {
+  string artist_id = 1;
+  string name = 2;
+  string bio = 3;
+  string image = 4;
+}
+
+message DeleteArtistRequest {
+  string artist_id = 1;
+}
+
+message ArtistResponse {
+  bool success = 1;
+  string message = 2;
+  Artist artist = 3;
+}
+
+message ListArtistsRequest {} // No specific fields for now
+
+message ListArtistsResponse {
+  repeated Artist artists = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+// Album Messages
+message Album {
+  string album_id = 1; // MongoDB _id as string
+  string title = 2;
+  string artist_id = 3; // Reference to Artist ID
+  int32 release = 4;
+  string cover_image = 5; // URL to album cover
+  string created_at = 6; // ISO string
+}
+
+message CreateAlbumRequest {
+  string title = 1;
+  string artist_id = 2;
+  int32 release = 3;
+  string cover_image = 4;
+}
+
+message GetAlbumRequest {
+  string album_id = 1; // Album ID
+}
+
+message UpdateAlbumRequest {
+  string album_id = 1;
+  string title = 2;
+  string artist_id = 3;
+  int32 release = 4;
+  string cover_image = 5;
+}
+
+message DeleteAlbumRequest {
+  string album_id = 1; // Album ID
+}
+
+message AlbumResponse {
+  bool success = 1;
+  string message = 2;
+  Album album = 3;
+}
+
+message ListAlbumsByArtistRequest {
+  string artist_id = 1;
+}
+
+message ListAlbumsResponse {
+  repeated Album albums = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+// Track Messages
+message Track {
+  string track_id = 1; // MongoDB _id as string
+  string title = 2;
+  string artist_id = 3; // Reference to Artist ID
+  string album_id = 4; // Reference to Album ID
+  int32 duration_sec = 5; // Duration in milliseconds
+  string genre = 6;
+  string audio_url = 7; // Simulated URL/path to audio file
+  int32 play_count = 8;
+  string created_at = 9; // ISO string
+}
+
+message CreateTrackRequest {
+  string title = 1;
+  string artist_id = 2;
+  string album_id = 3;
+  int32 duration_sec = 4;
+  string genre = 5;
+  string audio_url = 6;
+}
+
+message GetTrackRequest {
+  string track_id = 1; // Track ID
+}
+
+message UpdateTrackRequest {
+  string track_id = 1;
+  string title = 2;
+  string artist_id = 3;
+  string album_id = 4;
+  int32 duration_sec = 5;
+  string genre = 6;
+  string audio_url = 7;
+}
+
+message DeleteTrackRequest {
+  string id = 1; // Track ID
+}
+
+message TrackResponse {
+  bool success = 1;
+  string message = 2;
+  Track track = 3;
+}
+
+message ListTracksByAlbumRequest {
+  string album_id = 1;
+}
+
+message ListTracksResponse {
+  repeated Track tracks = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+message IncrementTrackPlayCountRequest {
+  string track_id = 1;
+}
+
+message IncrementTrackPlayCountResponse {
+  bool success = 1;
+  string message = 2;
+  int32 play_count = 3;
+}

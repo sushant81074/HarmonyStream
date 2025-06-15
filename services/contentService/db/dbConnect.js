@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const dbConnect = async () => {
     try {
-        const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/harmony_stream_users";
+        const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/harmony_stream_contents";
         const connection = await mongoose.connect(MONGODB_URI);
         if (connection)
             console.log("✅ MongoDB connected ");
