@@ -6,7 +6,7 @@ const healthRouter = require("./routes/health.routes.js")
 const { loadProto } = require("../../shared/protoLoader.js")
 const { dbConnect } = require("./db/dbConnect.js")
 const { redisConnect } = require("../../shared/redis.js")
-const { userGrpcObject } = require("./grpc/user.grpc.js")
+const { playlistGrpcObject } = require("./grpc/playlist.grpc.js")
 
 config({ path: ".env" })
 
@@ -26,10 +26,10 @@ app.listen(PORT, () => {
     console.log("✅ User service running on port:", PORT);
 });
 
-const userPackage = loadProto("user.proto").user;
+const playlistPackage = loadProto("playlist.proto").playlist;
 const grpcServer = new grpc.Server();
 
-grpcServer.addService(userPackage.UserService.service, userGrpcObject)
+grpcServer.addService(playlistPackage.PlaylistService.service, playlistGrpcObject)
 
 grpcServer.bindAsync(
     `${GRPC_PORT}`,

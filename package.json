@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/sushant81074/HarmonyStream/issues"
   },
-  "homepage": "https://github.com/sushant81074/HarmonyStream#readme"
+  "homepage": "https://github.com/sushant81074/HarmonyStream#readme",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.13.4"
+  }
 }
