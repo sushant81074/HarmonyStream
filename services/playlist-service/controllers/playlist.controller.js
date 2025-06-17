@@ -14,7 +14,7 @@ const createPlaylist = async ({ title, description, user_id, is_public }) => {
         if (!isValidObjectId(user_id)) throw new Error("invalid request id");
 
         const userService = getUserServiceClient();
-        if (userService instanceof Error) throw new Error("unable to connect with user-service")
+        if (userService instanceof Error) throw new Error("unable to connect with user-service");
 
         const userExists = await new Promise((resolve, reject) => {
             userService.GetUserById({ user_id }, (err, res) => {

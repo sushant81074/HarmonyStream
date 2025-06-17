@@ -13,7 +13,7 @@ const albumsSchema = new mongoose.Schema({
     release: {
         type: Date,
         required: true,
-        default: new Date().toISOString(),
+        default: Date.now,
     },
     coverImage: {
         type: String,

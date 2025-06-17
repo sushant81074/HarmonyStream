@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+package playback;
+
+service PlaybackService {
+  // RPCs for core playback actions
+  rpc PlayTrack(PlayTrackRequest) returns (PlaybackStateResponse);
+  rpc PauseTrack(PauseTrackRequest) returns (PlaybackStateResponse);
+  rpc ResumeTrack(ResumeTrackRequest) returns (PlaybackStateResponse);
+  rpc StopPlayback(StopPlaybackRequest) returns (PlaybackStateResponse); // New: to clear state
+  rpc GetPlaybackState(GetPlaybackStateRequest) returns (PlaybackStateResponse);
+
+  // RPC for play history
+  rpc GetPlayHistory(GetPlayHistoryRequest) returns (ListPlayHistoryResponse);
+
+  // RPCs for Queue Management (Day 16)
+  rpc AddTrackToQueue(AddTrackToQueueRequest) returns (PlaybackStateResponse);
+  rpc RemoveTrackFromQueue(RemoveTrackFromQueueRequest) returns (PlaybackStateResponse);
+  rpc GetQueue(GetQueueRequest) returns (GetQueueResponse);
+  rpc ClearQueue(ClearQueueRequest) returns (PlaybackStateResponse);
+}
+
+// Message representing the current playback state of a user
+message PlaybackState {
+  string user_id = 1;
+  string current_track_id = 2; // ID of the track currently playing (or paused)
+  int32 current_position_sec = 3; // Current playback position in seconds
+  int32 current_track_duration_sec = 4;
+  bool is_playing = 5; // True if playing, false if paused
+  string updated_at = 6; // ISO string when this state was last updated
+  repeated string queue_track_ids = 7; // IDs of tracks in the queue
+}
+
+// Message representing a historical play record
+message PlayHistoryRecord {
+  string playback_id = 1; // MongoDB _id as string
+  string user_id = 2;
+  string track_id = 3;
+  string played_at = 4; // ISO string
+}
+
+// --- Request Messages ---
+message PlayTrackRequest {
+  string user_id = 1;
+  string track_id = 2;
+}
+
+message PauseTrackRequest {
+  string user_id = 1;
+  // Note: track_id is often implied by the current playback state associated with user_id
+  // If explicitly needed for validation that a specific track is paused, you can add it back.
+}
+
+message ResumeTrackRequest {
+  string user_id = 1;
+}
+
+message StopPlaybackRequest {
+  string user_id = 1;
+}
+
+message GetPlaybackStateRequest {
+  string user_id = 1;
+}
+
+message GetPlayHistoryRequest {
+  string user_id = 1;
+  int32 limit = 2; // Optional: number of history records to return
+  int32 offset = 3; // Optional: for pagination
+}
+
+message AddTrackToQueueRequest {
+  string user_id = 1;
+  string track_id = 2;
+}
+
+message RemoveTrackFromQueueRequest {
+  string user_id = 1;
+  string track_id = 2;
+}
+
+message GetQueueRequest {
+  string user_id = 1;
+}
+
+message ClearQueueRequest {
+  string user_id = 1;
+}
+
+// --- Response Messages ---
+message PlaybackStateResponse {
+  bool success = 1;
+  string message = 2;
+  PlaybackState state = 3; // Current playback state
+}
+
+message ListPlayHistoryResponse {
+  bool success = 1;
+  string message = 2;
+  repeated PlayHistoryRecord history = 3;
+}
+
+message GetQueueResponse {
+  bool success = 1;
+  string message = 2;
+  repeated string queue_track_ids = 3; // Returns just the IDs in the queue
+}

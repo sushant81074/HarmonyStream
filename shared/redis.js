@@ -1,6 +1,8 @@
 const redis = require("redis");
 
 let rClient = null;
+let rPub = null;
+let rSub = null;
 
 const redisConnect = async () => {
     try {
@@ -31,9 +33,44 @@ const redisConnect = async () => {
     }
 };
 
+const redisPubConnect = async () => {
+    try {
+        const url = process.env.REDIS_URL || "redis://localhost:6379";
+        const password = process.env.REDIS_PASSWORD;
+
+        if (rPub && rPub.isOpen) {
+            console.log("✅ Redis connection successful");
+            return rPub;
+        }
+
+        rPub = redis.createClient({ url, password });
+        return await rPub.connect()
+    } catch (error) {
+        console.error("❌ Redis Pub connection failed:", error);
+        process.exit(1);
+    }
+}
+
+const redisSubConnect = async () => {
+    try {
+        const url = process.env.REDIS_URL || "redis://localhost:6379";
+        const password = process.env.REDIS_PASSWORD;
+
+        if (rSub && rSub.isOpen) {
+            console.log("✅ Redis connection successful");
+            return rSub;
+        }
+
+        rSub = redis.createClient({ url, password });
+        return await rSub.connect()
+    } catch (error) {
+        console.error("❌ Redis Sub connection failed:", error);
+        process.exit(1);
+    }
+}
 const setCache = async (key, value, ttl = 3600) => {
     if (!rClient) await redisConnect();
-    await rClient.set(key, JSON.stringify(value), { EX: ttl });
+    return await rClient.set(key, JSON.stringify(value), { EX: ttl });
 };
 
 const getCache = async (key) => {
@@ -52,28 +89,41 @@ const flushCache = async () => {
     return await rClient.flushAll();
 };
 
-const enqueue = async (que, data) => {
-    if (!rClient) await redisConnect();
-    return await rClient.lPush(que, data);
-}
+// const enqueue = async (que, data) => {
+//     if (!rClient) await redisConnect();
+//     return await rClient.rPush(que, data);
+// }
 
-const dequeue = async (que) => {
-    if (!rClient) await redisConnect();
-    return await rClient.rPop(que);
-}
+// const dequeue = async (que) => {
+//     if (!rClient) await redisConnect();
+//     return await rClient.lPop(que);
+// }
 
-const getQueueLength = async (que) => {
-    if (!rClient) await redisConnect();
-    return await rClient.lLen(que);
-}
+// const getQueueData = async (que) => {
+//     if (!rClient) await redisConnect();
+//     return await rClient.lRange(que, 0, -1);
+// }
+
+// const clearQueue = async (que) => {
+//     if (!rClient) await redisConnect();
+//     return await rClient.lTrim(que, 1, 0);
+// }
+
+// const getQueueLength = async (que) => {
+//     if (!rClient) await redisConnect();
+//     return await rClient.lLen(que);
+// }
 
 // Pub/Sub placeholders
-const redisPub = () => {
-    // Implement publishing logic if needed
+const redisPub = async (channel, message) => {
+    if (!rPub) await redisPubConnect();
+    return await rPub.publish(channel, JSON.stringify(message));
 };
 
-const redisSub = () => {
-    // Implement subscribing logic if needed
+const redisSub = async (channel) => {
+    if (!rSub) await redisSubConnect();
+    const data = await rSub.subscribe(channel);
+    return data ? JSON.parse(data) : null;
 };
 
 module.exports = {
@@ -82,9 +132,11 @@ module.exports = {
     getCache,
     delCache,
     flushCache,
-    enqueue,
-    dequeue,
-    getQueueLength,
+    // enqueue,
+    // dequeue,
+    // getQueueData,
+    // clearQueue,
+    // getQueueLength,
     redisPub,
     redisSub,
 };
