@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package search;
+
+import "content.proto"; // Import content messages (Artist, Album, Track)
+
+// Service definition for Search functionality
+service SearchService {
+  // General search across Artists, Albums, and Tracks
+  rpc SearchContent(SearchRequest) returns (SearchResponse);
+
+  // Search specifically for Artists
+  rpc SearchArtists(SearchRequest) returns (SearchArtistsResponse);
+
+  // Search specifically for Albums
+  rpc SearchAlbums(SearchRequest) returns (SearchAlbumsResponse);
+
+  // Search specifically for Tracks
+  rpc SearchTracks(SearchRequest) returns (SearchTracksResponse);
+}
+
+// Request message for all search operations
+message SearchRequest {
+  string query_string = 1;
+  int32 limit = 2;   // Optional: number of results to return
+  int32 offset = 3;  // Optional: for pagination
+  string genre = 4;  // Optional: filter by genre for tracks/albums
+  int32 release_year = 5; // Optional: filter by release year for albums/tracks
+}
+
+// Response message for general content search (mix of types)
+message SearchResponse {
+  bool success = 1;
+  string message = 2;
+  repeated content.Artist artists = 3; // Reusing Artist message from content.proto
+  repeated content.Album albums = 4;   // Reusing Album message from content.proto
+  repeated content.Track tracks = 5;   // Reusing Track message from content.proto
+}
+
+// Response message for searching only Artists
+message SearchArtistsResponse {
+  bool success = 1;
+  string message = 2;
+  repeated content.Artist artists = 3;
+}
+
+// Response message for searching only Albums
+message SearchAlbumsResponse {
+  bool success = 1;
+  string message = 2;
+  repeated content.Album albums = 3;
+}
+
+// Response message for searching only Tracks
+message SearchTracksResponse {
+  bool success = 1;
+  string message = 2;
+  repeated content.Track tracks = 3;
+}

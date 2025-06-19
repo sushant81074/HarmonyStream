@@ -100,8 +100,21 @@ const deleteArtist = async ({ artist_id }) => {
 }
 const listArtists = async () => {
     try {
-        const artists = await Artists.find({ isDeleted: false });
-        return { success: true, message: "all artist fetched", artists }
+        let artists = await Artists.find({ isDeleted: false });
+        artists = {
+            success: true,
+            message: "all artist fetched",
+            artists: artists.map(a => {
+                return {
+                    artist_id: a._id,
+                    name: a.name,
+                    bio: a.bio,
+                    image: a.image,
+                    created_at: a.createdAt
+                }
+            })
+        }
+        return artists;
     } catch (error) {
         console.error("error occured:", error.message);
         return {

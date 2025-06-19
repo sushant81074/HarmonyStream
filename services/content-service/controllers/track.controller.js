@@ -148,8 +148,20 @@ const listTracksByAlbum = async ({ album_id }) => {
 
         if (!isValidObjectId(album_id)) throw new Error("invalid request id");
 
-        const tracks = await Tracks.find({ album: album_id, isDeleted: false })
-
+        let tracks = await Tracks.find({ album: album_id, isDeleted: false })
+        tracks = tracks.map(t => {
+            return {
+                track_id: t._id,
+                title: t.title,
+                artist_id: t.artist,
+                album_id: t.album,
+                duration_sec: t.durationSec,
+                genre: t.genre,
+                audio_url: t.audioUrl,
+                play_count: t.playCount,
+                created_at: t.createdAt
+            }
+        })
         return {
             success: true,
             message: "tracks fetched",

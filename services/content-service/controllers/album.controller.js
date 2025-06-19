@@ -139,8 +139,17 @@ const listAlbumsByArtist = async ({ artist_id }) => {
 
         if (!isValidObjectId(artist_id)) throw new Error("invalid request id");
 
-        const albums = await Albums.find({ artist: artist_id, isDeleted: false })
-
+        let albums = await Albums.find({ artist: artist_id, isDeleted: false })
+        albums = albums.map(a => {
+            return {
+                album_id: a._id,
+                title: a.title,
+                artist_id: a.artist,
+                release: a.release,
+                cover_image: a.coverImage,
+                created_at: a.createdAt
+            }
+        })
         return {
             success: true,
             message: "albums fetched",

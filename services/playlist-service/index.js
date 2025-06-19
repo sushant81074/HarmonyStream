@@ -23,7 +23,7 @@ app.use(cors({ origin: "*" }))
 app.use("/", healthRouter.router);
 
 app.listen(PORT, () => {
-    console.log("✅ User service running on port:", PORT);
+    console.log("✅ Playlist service running on port:", PORT);
 });
 
 const playlistPackage = loadProto("playlist.proto").playlist;
