@@ -33,7 +33,7 @@ const playTrack = async ({ user_id, track_id }) => {
         })
         if (!trackExists) throw new Error("track with id not found");
 
-        const newPlayback = await Playbacks.create({ user: user_id, track: track_id });
+        const newPlayback = await Playbacks.create({ user: user_id, track: track_id, album: trackExists.track.album_id });
         if (!newPlayback) throw new Error("unable to create playback and play track");
 
         const incTrackPlayCount = await new Promise((resolve, reject) => {
@@ -222,6 +222,7 @@ const getPlaybackHistory = async ({ user_id, limit = 10, offset = 0 }) => {
                     playback_id: playback._id,
                     user_id: playback.user,
                     track_id: playback.track,
+                    album_id: playback.album,
                     played_at: playback.playedAt
                 }
             })
@@ -251,7 +252,7 @@ const addTrackToQueue = async ({ user_id, track_id }) => {
         if (!trackExists) throw new Error("track not found");
 
         const queKey = `playbackQue:${user_id}`;
-        const playbackQue = await getCache(queKey);
+        let playbackQue = await getCache(queKey);
 
         if (!playbackQue || !Array.isArray(playbackQue) || !playbackQue.length) {
             playbackQue = [track_id];
@@ -286,7 +287,7 @@ const addTrackToQueue = async ({ user_id, track_id }) => {
             state: playbackState
         }
     } catch (error) {
-        console.error("error occured:", error.message)
+        console.error("error occured:", error)
         return {
             success: false,
             message: error.message || "internal server error",

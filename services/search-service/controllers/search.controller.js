@@ -123,7 +123,6 @@ const searchTracks = async ({ query_string, limit = 10, offset = 0, genre }) => 
         return { success: false, message: error.message || "internal server error" }
     }
 }
-
 const searchContent = async ({ query_string, limit, offset, release_year, genre }) => {
     try {
 

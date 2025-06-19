@@ -36,7 +36,8 @@ message PlayHistoryRecord {
   string playback_id = 1; // MongoDB _id as string
   string user_id = 2;
   string track_id = 3;
-  string played_at = 4; // ISO string
+  string album_id = 4; // ISO string
+  string played_at = 5; // ISO string
 }
 
 // --- Request Messages ---

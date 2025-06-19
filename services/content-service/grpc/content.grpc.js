@@ -1,6 +1,6 @@
 const { createAlbum, getAlbum, updateAlbum, deleteAlbum, listAlbumsByArtist } = require('../controllers/album.controller');
 const { createArtist, getArtist, updateArtist, deleteArtist, listArtists } = require('../controllers/artist.controller');
-const { createTrack, getTrack, updateTrack, deleteTrack, listTracksByAlbum, incrementTrackPlayCount } = require('../controllers/track.controller');
+const { createTrack, getTrack, updateTrack, deleteTrack, listTracksByAlbum, incrementTrackPlayCount, listMostPlayedTracks } = require('../controllers/track.controller');
 
 const contentGrpcObject = {
     CreateArtist: async (call, callBack) => {
@@ -75,7 +75,11 @@ const contentGrpcObject = {
     IncrementTrackPlayCount: async (call, callBack) => {
         const res = await incrementTrackPlayCount(call.request);
         callBack(null, res);
-    }
+    },
+    ListMostPlayedTracks: async (call, callBack) => {
+        const res = await listMostPlayedTracks(call.request);
+        callBack(null, res);
+    },
 }
 
 module.exports = { contentGrpcObject }

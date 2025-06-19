@@ -22,7 +22,7 @@ service ContentService {
   rpc UpdateTrack(UpdateTrackRequest) returns (TrackResponse);
   rpc DeleteTrack(DeleteTrackRequest) returns (DeleteResponse);
   rpc ListTracksByAlbum(ListTracksByAlbumRequest) returns (ListTracksResponse);
-
+  rpc ListMostPlayedTracks(ListMostPlayedTracksRequest) returns (ListTracksResponse);
   // Utility RPC
   rpc IncrementTrackPlayCount(IncrementTrackPlayCountRequest) returns (IncrementTrackPlayCountResponse);
 }
@@ -69,6 +69,8 @@ message ArtistResponse {
 }
 
 message ListArtistsRequest {} // No specific fields for now
+
+message ListMostPlayedTracksRequest {} // No specific fields for now
 
 message ListArtistsResponse {
   repeated Artist artists = 1;

@@ -11,6 +11,11 @@ const playbacksSchema = new mongoose.Schema({
         ref: "Tracks",
         trim: true,
     },
+    album: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Albums",
+        trim: true,
+    },
     playedAt: { type: Date, default: Date.now },
 }, { timestamps: true });
 
