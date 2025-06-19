@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package user;
+
+service UserService {
+  rpc SignUp(SignUpRequest) returns (SignUpResponse);
+  rpc SignIn(SignInRequest) returns (SignInResponse);
+  rpc VerifyToken (VerifyTokenRequest) returns (VerifyTokenResponse);
+  rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
+  rpc UpdateUserProfile(UpdateUserProfileRequest) returns (UpdateUserProfileResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+}
+
+message SignUpRequest {
+  string user_name = 1;
+  string avatar = 2;
+  string email = 3;
+  string password = 4;
+  string confirm_password = 5;
+  string role = 6; // e.g., "USER", "ADMIN"
+}
+
+message SignUpResponse {
+  bool success = 1;
+  string user_id = 2; // Maps to MongoDB's _id
+  string message = 3; // General success/error message
+}
+
+message SignInRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message SignInResponse {
+  bool success = 1;
+  string token = 2;
+  string refresh_token = 3; // snake_case for consistency
+  string message = 4;
+}
+
+message VerifyTokenRequest {
+  string token = 1;
+}
+
+message VerifyTokenResponse {
+  bool is_valid = 1; // snake_case for consistency
+  string user_id = 2; // Maps to MongoDB's _id
+  string message = 3;
+}
+
+message GetUserByIdRequest {
+  string user_id = 1; // Maps to MongoDB's _id
+}
+
+message GetUserByIdResponse {
+  string user_id = 1;
+  string user_name = 2;
+  string avatar = 3;
+  string email = 4;
+  string created_at = 5; // snake_case for consistency
+  string role = 6;
+}
+
+message UpdateUserProfileRequest {
+  string user_id = 1;
+  string user_name = 2;
+  string avatar = 3;
+}
+
+message UpdateUserProfileResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message DeleteUserRequest {
+  string user_id = 1;
+}
+
+message DeleteUserResponse {
+  bool success = 1;
+  string message = 2;
+}
