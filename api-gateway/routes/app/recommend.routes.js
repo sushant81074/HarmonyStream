@@ -1,7 +1,7 @@
+const { recommendations } = require('../../controllers/app/recommend.controller');
+
 const router = require('express').Router();
 
-router
-    .get("/tracks")
-    .get("/general")
+router.get(["/personal", "/general"], recommendations)
 
 module.exports = { router }

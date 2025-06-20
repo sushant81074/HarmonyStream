@@ -52,7 +52,7 @@ const getContentServiceClient = () => getGrpcClient('ContentService', 'content.p
 const getPlaylistServiceClient = () => getGrpcClient('PlaylistService', 'playlist.proto', 'PLAYLIST_GRPC_PORT', 'playlist');
 const getPlaybackServiceClient = () => getGrpcClient('PlaybackService', 'playback.proto', 'PLAYBACK_GRPC_PORT', 'playback');
 const getSearchServiceClient = () => getGrpcClient('SearchService', 'search.proto', 'SEARCH_GRPC_PORT', 'search');
-const getRecommendationServiceClient = () => getGrpcClient('RecommendationService', 'recommendation.proto', 'RECOMMEND_GRPC_PORT', 'recommendation');
+const getRecommendationServiceClient = () => getGrpcClient('RecommendService', 'recommend.proto', 'RECOMMEND_GRPC_PORT', 'recommend');
 
 module.exports = {
     getUserServiceClient,
