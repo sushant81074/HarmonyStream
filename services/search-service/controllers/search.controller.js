@@ -32,8 +32,6 @@ const searchArtists = async ({ query_string, limit, offset }) => {
             }
         }
 
-        console.log({ foundArtists });
-
         if (!limit) limit = 10;
         if (!offset) offset = 0;
 
@@ -66,7 +64,6 @@ const searchAlbums = async ({ query_string, limit = 10, offset = 0, release_year
                 else resolve(res);
             })
         })
-        console.log({ albumsByArtist });
         albumsByArtist = albumsByArtist?.albums;
 
         if (!limit) limit = 10;
@@ -112,7 +109,7 @@ const searchTracks = async ({ query_string, limit = 10, offset = 0, genre }) => 
             if (genre) tracksByAlbum = tracksByAlbum.filter(track => track.genre.toLowerCase() == genre.toLowerCase());
             tracksByAlbum = tracksByAlbum.slice(offset, offset + limit);
         }
-        console.log(tracksByAlbum);
+
         return {
             success: true,
             message: "done",
