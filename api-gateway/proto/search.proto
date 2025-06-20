@@ -8,14 +8,8 @@ import "content.proto"; // Import content messages (Artist, Album, Track)
 service SearchService {
   // General search across Artists, Albums, and Tracks
   rpc SearchContent(SearchRequest) returns (SearchResponse);
-
-  // Search specifically for Artists
   rpc SearchArtists(SearchRequest) returns (SearchArtistsResponse);
-
-  // Search specifically for Albums
   rpc SearchAlbums(SearchRequest) returns (SearchAlbumsResponse);
-
-  // Search specifically for Tracks
   rpc SearchTracks(SearchRequest) returns (SearchTracksResponse);
 }
 

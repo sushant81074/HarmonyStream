@@ -3,7 +3,7 @@ const cors = require('cors');
 const { config } = require('dotenv');
 const { router: authRouter } = require("./routes/auth/auth.route");
 const { router: userRouter } = require("./routes/app/user.routes");
-// const { router: searchRouter } = require("./routes/app/search.routes");
+const { router: searchRouter } = require("./routes/app/search.routes");
 // const { router: contentRouter } = require("./routes/app/content.routes");
 // const { router: playlistRouter } = require("./routes/app/playlist.routes");
 // const { router: playbackRouter } = require("./routes/app/playback.routes");
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1/auth", authRouter);
 // protected routes
 app.use("/api/v1/users", userRouter);
-// app.use("/api/v1/searches", searchRouter);
+app.use("/api/v1/search", searchRouter);
 // app.use("/api/v1/contents", contentRouter);
 // app.use("/api/v1/playlists", playlistRouter);
 // app.use("/api/v1/playbacks", playbackRouter);

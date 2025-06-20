@@ -1,11 +1,9 @@
+const { search } = require('../../controllers/app/search.controller');
 const { auth } = require('../../middlewares/auth');
 
 const router = require('express').Router();
 
-router
-    .get("/artists")
-    .get("/albums")
-    .get("/tracks")
-    .get("/all")
+router.use(auth);
+router.get(["/artists", "/albums", "/tracks", "/all",], search)
 
 module.exports = { router }
