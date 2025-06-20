@@ -32,7 +32,7 @@ const playlistGrpcObject = {
     ReorderTracksInPlaylist: async (call, callBack) => {
         const res = await reorderTracksInPlaylist(call.request);
         callBack(null, res);
-    },
+    }
 }
 
 module.exports = { playlistGrpcObject }

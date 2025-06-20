@@ -11,7 +11,7 @@ const createPlaylist = async ({ title, description, user_id, is_public }) => {
 
         const isValid = fieldValidator(requestedFields, requiredFields);
         if (!isValid) throw new Error("invalid request payload");
-        if (!isValidObjectId(user_id)) throw new Error("invalid request id");
+        if (!isValidObjectId(user_id)) throw new Error("invalid create request id");
 
         const userService = getUserServiceClient();
         if (userService instanceof Error) throw new Error("unable to connect with user-service");
@@ -58,7 +58,7 @@ const getPlaylist = async ({ playlist_id }) => {
     try {
         const isValid = fieldValidator({ playlist_id }, ["playlist_id"]);
         if (!isValid) throw new Error("invalid request payload");
-        if (!isValidObjectId(playlist_id)) throw new Error("invalid request id");
+        if (!isValidObjectId(playlist_id)) throw new Error("invalid get request id");
 
         const playlist = await Playlists.findById(playlist_id);
         if (!playlist || playlist.isDeleted) throw new Error("playlist not found");
@@ -94,7 +94,7 @@ const updatePlaylist = async ({ playlist_id, title, description, is_public }) =>
             ["playlist_id", "title", "description", "is_public"]
         );
         if (!isValid) throw new Error("invalid request payload");
-        if (!isValidObjectId(playlist_id)) throw new Error("invalid request id");
+        if (!isValidObjectId(playlist_id)) throw new Error("invalid update request id");
 
         const playlist = await Playlists.findByIdAndUpdate(playlist_id, {
             $set: { title, description, isPublic: is_public }
@@ -129,7 +129,7 @@ const deletePlaylist = async ({ playlist_id }) => {
     try {
         const isValid = fieldValidator({ playlist_id }, ["playlist_id"]);
         if (!isValid) throw new Error("invalid request payload");
-        if (!isValidObjectId(playlist_id)) throw new Error("invalid request id");
+        if (!isValidObjectId(playlist_id)) throw new Error("invalid delete request id");
 
         const playlist = await Playlists.findByIdAndUpdate(playlist_id, { $set: { isDeleted: true } }, { new: true });
         if (!playlist.isDeleted) throw new Error("playlist not found");
@@ -152,7 +152,7 @@ const listUserPlaylists = async ({ user_id }) => {
 
         const isValid = fieldValidator({ user_id }, ["user_id"]);
         if (!isValid) throw new Error("invalid request payload");
-        if (!isValidObjectId(user_id)) throw new Error("invalid request id");
+        if (!isValidObjectId(user_id)) throw new Error("invalid list request id");
 
         let playlists = await Playlists.find({ user: user_id, isDeleted: false });
         if (!Array.isArray(playlists) || !playlists.length) playlists = [];
@@ -185,10 +185,10 @@ const listUserPlaylists = async ({ user_id }) => {
 }
 const addTrackToPlaylist = async ({ playlist_id, track_id }) => {
     try {
-
+        console.log("--------", { playlist_id, track_id });
         const isValid = fieldValidator({ playlist_id, track_id }, ["playlist_id", "track_id"]);
         if (!isValid) throw new Error("invalid request payload");
-        if (!isValidObjectId(playlist_id) || !isValidObjectId(track_id)) throw new Error("invalid request id");
+        if (!isValidObjectId(playlist_id) || !isValidObjectId(track_id)) throw new Error("invalid request playlist and track id");
 
         const contentService = getContentServiceClient();
         if (contentService instanceof Error) throw new Error("unable to connect with content-service");
@@ -234,10 +234,9 @@ const addTrackToPlaylist = async ({ playlist_id, track_id }) => {
 }
 const removeTrackFromPlaylist = async ({ playlist_id, track_id }) => {
     try {
-
         const isValid = fieldValidator({ playlist_id, track_id }, ["playlist_id", "track_id"]);
         if (!isValid) throw new Error("invalid request payload");
-        if (!isValidObjectId(playlist_id) || !isValidObjectId(track_id)) throw new Error("invalid request id");
+        if (!isValidObjectId(playlist_id) || !isValidObjectId(track_id)) throw new Error("invalid remove request id");
 
         const playlist = await Playlists.findByIdAndUpdate(playlist_id,
             { $pull: { tracks: track_id } },
@@ -274,7 +273,7 @@ const reorderTracksInPlaylist = async ({ playlist_id, track_old_index, track_new
 
         const isValid = fieldValidator({ playlist_id, track_old_index, track_new_index }, ["playlist_id", "track_old_index", "track_new_index"]);
         if (!isValid) throw new Error("invalid request payload");
-        if (!isValidObjectId(playlist_id)) throw new Error("invalid request id");
+        if (!isValidObjectId(playlist_id)) throw new Error("invalid reorder request id");
 
         const playlist = await Playlists.findById(playlist_id);
         if (!playlist) throw new Error("playlist not found")

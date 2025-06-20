@@ -12,14 +12,12 @@ const handleGrpcCall = async (res, serviceCallPromise) => {
 
 const recommendations = async (req, res) => {
     const { id, limit, offset } = req.query;
-    console.log({ id, limit, offset });
-    const recommendService = getRecommendationServiceClient();
-    console.log(recommendService);
+
     let endPoint = req._parsedUrl.pathname.split("/")
     endPoint = endPoint.find(e => e);
 
+    const recommendService = getRecommendationServiceClient();
     let serviceMethod = {};
-
     switch (endPoint) {
         case "personalised":
             serviceMethod = recommendService.GetTrackRecommendation;
@@ -29,7 +27,6 @@ const recommendations = async (req, res) => {
             serviceMethod = recommendService.GetGeneralRecommendation;
             break;
     }
-
     await handleGrpcCall(res, new Promise((resolve, reject) => {
         serviceMethod.bind(recommendService)({ user_id: id, limit, offset }, (err, res) => {
             if (err) reject(err);
