@@ -1,6 +1,8 @@
 const { isValidObjectId } = require("mongoose");
 const Tracks = require("../schemas/track.schema");
 const { fieldValidator } = require("../../../shared/fieldValidator");
+const Artists = require("../schemas/artist.schema");
+const Albums = require("../schemas/album.schema");
 
 const createTrack = async ({ title, artist_id, album_id, duration_sec, genre, audio_url }) => {
     try {
@@ -13,8 +15,16 @@ const createTrack = async ({ title, artist_id, album_id, duration_sec, genre, au
 
         if (!isValidObjectId(artist_id)) throw new Error("invalid request id");
 
+        const artistExists = await Artists.findById(artist_id);
+        if (!artistExists) throw new Error("Artist with id not found");
+
+        const albumExists = await Albums.findById(album_id);
+        if (!albumExists) throw new Error("Album with id not found");
+
+        if (!albumExists.artist.equals(artistExists._id)) throw new Error("Album owner mis-match")
+
         const trackExists = await Tracks.findOne({ title, artist: artist_id, album: album_id, isDeleted: false });
-        if (trackExists) throw new Error("album already exists");
+        if (trackExists) throw new Error("track already exists");
 
         const newTrack = await Tracks.create({ title, genre, artist: artist_id, album: album_id, durationSec: duration_sec, audioUrl: audio_url })
         if (!newTrack) throw new Error("unable to create track");
@@ -88,6 +98,14 @@ const updateTrack = async ({ track_id, title, artist_id, album_id, duration_sec,
         if (!isValid) throw new Error("invalid request payload");
 
         if (!isValidObjectId(artist_id) || !isValidObjectId(album_id) || !isValidObjectId(track_id)) throw new Error("invalid request id");
+
+        const artistExists = await Artists.findById(artist_id);
+        if (!artistExists) throw new Error("Artist with id not found");
+
+        const albumExists = await Albums.findById(album_id);
+        if (!albumExists) throw new Error("Album with id not found");
+
+        if (!albumExists.artist.equals(artistExists._id)) throw new Error("Album owner mis-match")
 
         const updatedTrack = await Tracks.findByIdAndUpdate(track_id,
             { $set: { title, genre, artist: artist_id, album: album_id, durationSec: duration_sec, audioUrl: audio_url } },

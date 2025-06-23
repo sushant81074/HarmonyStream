@@ -4,23 +4,20 @@ const { createTrack, getTrack, updateTrack, deleteTrack, listTracksByAlbum, incr
 
 const contentGrpcObject = {
     CreateArtist: async (call, callBack) => {
-        const { name, bio, image } = call.request;
-        const res = await createArtist({ name, bio, image });
+        const res = await createArtist(call.request);
         callBack(null, res);
     },
     GetArtist: async (call, callBack) => {
-        const { artist_id } = call.request;
-        const res = await getArtist({ artist_id });
+        console.log(call.request);
+        const res = await getArtist(call.request);
         callBack(null, res);
     },
     UpdateArtist: async (call, callBack) => {
-        const { artist_id, name, bio, image } = call.request;
-        const res = await updateArtist({ artist_id, name, bio, image });
+        const res = await updateArtist(call.request);
         callBack(null, res);
     },
     DeleteArtist: async (call, callBack) => {
-        const { artist_id } = call.request;
-        const res = await deleteArtist({ artist_id });
+        const res = await deleteArtist(call.request);
         callBack(null, res);
     },
     ListArtists: async (_, callBack) => {
@@ -28,28 +25,23 @@ const contentGrpcObject = {
         callBack(null, res);
     },
     CreateAlbum: async (call, callBack) => {
-        const { title, artist_id, release, cover_image } = call.request;
-        const res = await createAlbum({ title, artist_id, release, cover_image });
+        const res = await createAlbum(call.request);
         callBack(null, res);
     },
     GetAlbum: async (call, callBack) => {
-        const { album_id } = call.request;
-        const res = await getAlbum({ album_id });
+        const res = await getAlbum(call.request);
         callBack(null, res);
     },
     UpdateAlbum: async (call, callBack) => {
-        const { album_id, title, artist_id, release, cover_image } = call.request;
-        const res = await updateAlbum({ album_id, title, artist_id, release, cover_image });
+        const res = await updateAlbum(call.request);
         callBack(null, res);
     },
     DeleteAlbum: async (call, callBack) => {
-        const { album_id } = call.request;
-        const res = await deleteAlbum({ album_id });
+        const res = await deleteAlbum(call.request);
         callBack(null, res);
     },
     ListAlbumsByArtist: async (call, callBack) => {
-        const { artist_id } = call.request;
-        const res = await listAlbumsByArtist({ artist_id });
+        const res = await listAlbumsByArtist(call.request);
         callBack(null, res);
     },
     CreateTrack: async (call, callBack) => {
@@ -65,7 +57,8 @@ const contentGrpcObject = {
         callBack(null, res);
     },
     DeleteTrack: async (call, callBack) => {
-        const res = await deleteTrack(call.request);
+        const { id: track_id } = (call.request);
+        const res = await deleteTrack({ track_id });
         callBack(null, res);
     },
     ListTracksByAlbum: async (call, callBack) => {

@@ -164,7 +164,7 @@ message UpdateTrackRequest {
 }
 
 message DeleteTrackRequest {
-  string id = 1; // Track ID
+  string track_id = 1; // Track ID
 }
 
 message TrackResponse {

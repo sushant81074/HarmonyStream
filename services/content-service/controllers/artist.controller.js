@@ -35,7 +35,7 @@ const getArtist = async ({ artist_id }) => {
     try {
         const isValid = fieldValidator({ artist_id }, ["artist_id"]);
         if (!isValid) throw new Error("invalid request payload");
-
+        console.log(artist_id);
         if (!isValidObjectId(artist_id)) throw new Error("invalid request id");
 
         const artist = await Artists.findById(artist_id);
@@ -71,7 +71,7 @@ const updateArtist = async ({ artist_id, name, bio, image }) => {
         return {
             success: true,
             message: "artist updated",
-            artist: { artist_id: updatedArtist._id, created_at: artist.createdAt, ...updatedArtist._doc }
+            artist: { artist_id: updatedArtist._id, created_at: updatedArtist.createdAt, ...updatedArtist._doc }
         }
     } catch (error) {
         console.error("error occured:", error.message);

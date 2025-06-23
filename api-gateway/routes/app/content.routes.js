@@ -1,16 +1,60 @@
 const router = require('express').Router();
 
-router.route("/artists/:id").get().patch().delete()
-router.route("/albums").get().patch().delete()
-router.route("/tracks").get().patch().delete()
+const {
+    createArtist,
+    getArtist,
+    updateArtist,
+    deleteArtist,
+    listArtists,
+    createAlbum,
+    getAlbum,
+    updateAlbum,
+    deleteAlbum,
+    listAlbumsByArtist,
+    createTrack,
+    getTrack,
+    updateTrack,
+    deleteTrack,
+    listTracksByAlbum,
+    listMostPlayedTracks,
+    incrementTrackPlayCount
+} = require('../../controllers/app/content.controller'); // update path as needed
 
-router.post("/artists")
-    .post("/albums")
-    .post("/tracks")
+// Artists
+router.route("/artists")
+    .get(getArtist)
+    .post(createArtist);
 
+router.get("/artists/all", listArtists);
 
-router.get("/artists/all")
-    .get("/albums/all")
-    .get("/tracks/all")
+router.patch("/artists/:id", updateArtist)
+    .patch("/artists/:id/delete", deleteArtist);
 
-module.exports = { router }
+// Albums
+router
+    .route("/albums")
+    .post(createAlbum)
+    .get(getAlbum);
+
+// all albums for an artist (assumes filter by artist in controller)
+router.get("/albums/all", listAlbumsByArtist);
+
+router.patch("/albums/:id", updateAlbum)
+    .patch("/albums/:id/delete", deleteAlbum);
+
+// Tracks
+router.route("/tracks")
+    .get(getTrack)
+    .post(createTrack);
+
+// all tracks in an album
+router.get("/tracks/all", listTracksByAlbum);
+
+router.patch("/tracks/:id", updateTrack)
+    .patch("/tracks/:id/delete", deleteTrack);
+
+// Extra routes
+router.get("/tracks/most-played", listMostPlayedTracks);
+router.patch("/tracks/:id/inc", incrementTrackPlayCount);
+
+module.exports = { router };
