@@ -1,0 +1,1466 @@
+{
+	"info": {
+		"_postman_id": "6c7caf2c-b163-40df-8ae2-c56738ba2e00",
+		"name": "microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "36994773"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "sign-up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"sushant94601@gmail.com\",\r\n    \"name\": \"sushant\",\r\n    \"password\": \"sushant\",\r\n    \"confirm\": \"sushant\",\r\n    \"avatar\": \"sushant.jpg\",\r\n    \"role\": \"USER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/auth/sign-up"
+					},
+					"response": []
+				},
+				{
+					"name": "sign-in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\":\"sushant94601@gmail.com\", \r\n  \"password\":\"sushant\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/auth/sign-in"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "delete user by id",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/users/68553f9a9f02080b50746996/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "update user by id",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"avatar\":\"jello.jpeg\",\r\n    \"name\":\"jello name\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/users/68553f9a9f02080b50746996"
+					},
+					"response": []
+				},
+				{
+					"name": "fetch user by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\":\"sushant94601@gmail.com\", \r\n  \"password\":\"sushant\" \r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/users?id=68553f9a9f02080b50746996",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "68553f9a9f02080b50746996"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "content",
+			"item": [
+				{
+					"name": "get artist",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/contents/artists?id=684e9c3a37be6168e1005e18",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"contents",
+								"artists"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "684e9c3a37be6168e1005e18"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get allartist",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:3007/api/v1/contents/artists/all"
+					},
+					"response": []
+				},
+				{
+					"name": "create artist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"michel\", \"bio\":\"jackson\",\"image\":\"imga.jpeg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/contents/artists"
+					},
+					"response": []
+				},
+				{
+					"name": "update artist",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"yello\",\r\n    \"bio\":\"jello\",\r\n    \"image\":\"imga.jpeg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/contents/artists/684e9c3a37be6168e1005e18"
+					},
+					"response": []
+				},
+				{
+					"name": "delete artist",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:3007/api/v1/contents/artists/684e9c3a37be6168e1005e18/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "get album",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/contents/albums?id=684eb36c8b47802172c44dd1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"contents",
+								"albums"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "684eb36c8b47802172c44dd1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get allalbums",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/contents/albums/all?id=684e9c3a37be6168e1005e18",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"contents",
+								"albums",
+								"all"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "684e9c3a37be6168e1005e18"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create album",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"title.to\",\r\n    \"artId\": \"684e9c3a37be6168e1005e18\",\r\n    \"release\": \"2024\",\r\n    \"cover\": \"cover.jpeg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/contents/albums"
+					},
+					"response": []
+				},
+				{
+					"name": "update album",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"title.tomekobhalo\",\r\n    \"artId\": \"684e9c3a37be6168e1005e18\",\r\n    \"release\": \"2024\",\r\n    \"cover\": \"cover.jpeg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/contents/albums/6859847b6d20b4f499af20de"
+					},
+					"response": []
+				},
+				{
+					"name": "delete albums",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:3007/api/v1/contents/albums/6859847b6d20b4f499af20de/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "get track",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/contents/tracks?id=684ed5dea8b34d53da697b00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"contents",
+								"tracks"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "684ed5dea8b34d53da697b00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all tracks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/contents/tracks/all?id=684eb36c8b47802172c44dd1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"contents",
+								"tracks",
+								"all"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "684eb36c8b47802172c44dd1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create tracks",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"track a1\",\r\n    \"artId\": \"684e9c3a37be6168e1005e18\",\r\n    \"albId\": \"6859847b6d20b4f499af20de\",\r\n    \"duration\": 150,\r\n    \"genre\": \"Mixed\",\r\n    \"audioUrl\": \"http:audioUrl.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/contents/tracks"
+					},
+					"response": []
+				},
+				{
+					"name": "update track",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"track a1\",\r\n    \"artId\": \"684e9c3a37be6168e1005e18\",\r\n    \"albId\": \"6859847b6d20b4f499af20de\",\r\n    \"duration\": 180,\r\n    \"genre\": \"Mixed\",\r\n    \"audioUrl\": \"http:audioUrl.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/contents/tracks/685987677888be7308740375"
+					},
+					"response": []
+				},
+				{
+					"name": "delete track",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:3007/api/v1/contents/tracks/685987677888be7308740375/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "inc track play count",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:3007/api/v1/contents/tracks/685987677888be7308740375/inc"
+					},
+					"response": []
+				},
+				{
+					"name": "most played songs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ec2341be-a66c-4e70-94b5-3d2f297f8199",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:3007/api/v1/contents/tracks/most-played"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "playlist",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"68553f9a9f02080b50746996\", \"title\":\"my playlist\", \"description\":\"this is my playlist\", \"isPublic\":false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/playlists/"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"title\":\"playlist of mine\", \"description\":\"this is my playlist\", \"isPublic\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/playlists/68559f463a06eee0402c7e98"
+					},
+					"response": []
+				},
+				{
+					"name": "add track",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pId\":\"68559f463a06eee0402c7e98\",\r\n    \"tId\":\"684ed7125b4e553e392ba38f\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/playlists/add"
+					},
+					"response": []
+				},
+				{
+					"name": "remove track",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pId\":\"68559f463a06eee0402c7e98\",\r\n    \"tId\":\"684ed5dea8b34d53da697b00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/playlists/remove"
+					},
+					"response": []
+				},
+				{
+					"name": "reorder tracks",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"id\":\"68559f463a06eee0402c7e98\", \"oIdx\":1, \"nIdx\":2 \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/playlists/re-order"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/playlists/68559f463a06eee0402c7e98/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "fetch by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/playlists/?id=68559f463a06eee0402c7e98",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"playlists",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "68559f463a06eee0402c7e98"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user's all playlists",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/playlists/all?id=68553f9a9f02080b50746996",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"playlists",
+								"all"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "68553f9a9f02080b50746996"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "playback",
+			"item": [
+				{
+					"name": "play track",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "c158f888-8b01-40b7-8ae4-20df70b945ec",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"uId\":\"684fbeacdea5e46c519ce170\",\r\n \"tId\":\"684ed5dea8b34d53da697b00\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/playbacks/play"
+					},
+					"response": []
+				},
+				{
+					"name": "pause/resume/stop track",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "c158f888-8b01-40b7-8ae4-20df70b945ec",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "// pause -> http://localhost:3007/api/v1/playbacks/684fbeacdea5e46c519ce170/pause\r\n// resume -> http://localhost:3007/api/v1/playbacks/684fbeacdea5e46c519ce170/pause\r\n// stop -> http://localhost:3007/api/v1/playbacks/684fbeacdea5e46c519ce170/stop\r\n{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/playbacks/684fbeacdea5e46c519ce170/stop"
+					},
+					"response": []
+				},
+				{
+					"name": "get playback state",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "c158f888-8b01-40b7-8ae4-20df70b945ec",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "// pause -> http://localhost:3007/api/v1/playbacks/684fbeacdea5e46c519ce170/pause\r\n// resume -> http://localhost:3007/api/v1/playbacks/684fbeacdea5e46c519ce170/pause\r\n// stop -> http://localhost:3007/api/v1/playbacks/684fbeacdea5e46c519ce170/stop\r\n{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/playbacks/state?id=684fbeacdea5e46c519ce170",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"playbacks",
+								"state"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "684fbeacdea5e46c519ce170"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get playback history",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "c158f888-8b01-40b7-8ae4-20df70b945ec",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "// pause -> http://localhost:3007/api/v1/playbacks/684fbeacdea5e46c519ce170/pause\r\n// resume -> http://localhost:3007/api/v1/playbacks/684fbeacdea5e46c519ce170/pause\r\n// stop -> http://localhost:3007/api/v1/playbacks/684fbeacdea5e46c519ce170/stop\r\n{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/playbacks/history?id=684fbeacdea5e46c519ce170",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"playbacks",
+								"history"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "684fbeacdea5e46c519ce170"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get playback queue",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "c158f888-8b01-40b7-8ae4-20df70b945ec",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "// pause -> http://localhost:3007/api/v1/playbacks/684fbeacdea5e46c519ce170/pause\r\n// resume -> http://localhost:3007/api/v1/playbacks/684fbeacdea5e46c519ce170/pause\r\n// stop -> http://localhost:3007/api/v1/playbacks/684fbeacdea5e46c519ce170/stop\r\n{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/playbacks/queue?id=68553f9a9f02080b50746996",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"playbacks",
+								"queue"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "68553f9a9f02080b50746996"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add track to playback queue",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "c158f888-8b01-40b7-8ae4-20df70b945ec",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uId\":\"68553f9a9f02080b50746996\",\r\n    \"tId\":\"684ed7125b4e553e392ba38f\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/playbacks/queue"
+					},
+					"response": []
+				},
+				{
+					"name": "remove track to playback queue",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "c158f888-8b01-40b7-8ae4-20df70b945ec",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uId\":\"68553f9a9f02080b50746996\",\r\n    \"tId\":\"684ed7125b4e553e392ba38f\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/playbacks/queue/684ed7125b4e553e392ba38f/remove"
+					},
+					"response": []
+				},
+				{
+					"name": "clear playback queue",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "c158f888-8b01-40b7-8ae4-20df70b945ec",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uId\":\"68553f9a9f02080b50746996\",\r\n    \"tId\":\"684ed7125b4e553e392ba38f\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3007/api/v1/playbacks/queue/684ed7125b4e553e392ba38f/clear"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "search",
+			"item": [
+				{
+					"name": "search  artists",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/search/artists/?query=684eb36c8b47802172c44dd1&limit=10&offset=0&genre=Mixed&release_year=2024",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"search",
+								"artists",
+								""
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "684eb36c8b47802172c44dd1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "genre",
+									"value": "Mixed"
+								},
+								{
+									"key": "release_year",
+									"value": "2024"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search  tracks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/search/tracks/?query=684eb36c8b47802172c44dd1&limit=10&offset=0&genre=Mixed&release_year=2024",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"search",
+								"tracks",
+								""
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "684eb36c8b47802172c44dd1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "genre",
+									"value": "Mixed"
+								},
+								{
+									"key": "release_year",
+									"value": "2024"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search  albums",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/search/albums/?query=684eb36c8b47802172c44dd1&limit=10&offset=0&genre=Mixed&release_year=2024",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"search",
+								"albums",
+								""
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "684eb36c8b47802172c44dd1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "genre",
+									"value": "Mixed"
+								},
+								{
+									"key": "release_year",
+									"value": "2024"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search  all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/search/all/?query=684eb36c8b47802172c44dd1&limit=10&offset=0&genre=Mixed&release_year=2024",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"search",
+								"all",
+								""
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "684eb36c8b47802172c44dd1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "genre",
+									"value": "Mixed"
+								},
+								{
+									"key": "release_year",
+									"value": "2024"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "recommendation",
+			"item": [
+				{
+					"name": "personalised",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/recommendations/personal/?id=684eb36c8b47802172c44dd1&limit=10&offset=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"recommendations",
+								"personal",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "684eb36c8b47802172c44dd1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "general",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "25d45304-b842-4723-961d-c11d1e87e206",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3007/api/v1/recommendations/general/?id=684eb36c8b47802172c44dd1&limit=10&offset=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"v1",
+								"recommendations",
+								"general",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "684eb36c8b47802172c44dd1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

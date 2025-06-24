@@ -47,12 +47,7 @@ const playTrack = async ({ user_id, track_id }) => {
         const queKey = `playbackQue:${user_id}`;
         let userPlaybackQue = await getCache(queKey);
 
-        if (userPlaybackQue && Array.isArray(userPlaybackQue)) {
-            if (userPlaybackQue.includes(track_id)) {
-                userPlaybackQue = userPlaybackQue.filter(id => id !== track_id);
-            }
-            userPlaybackQue.unshift(track_id);
-        } else userPlaybackQue = [track_id];
+        userPlaybackQue = [track_id];
 
         await setCache(queKey, userPlaybackQue);
 
@@ -348,7 +343,6 @@ const getQueue = async ({ user_id }) => {
 }
 const clearQueue = async ({ user_id }) => {
     try {
-
         const isValid = fieldValidator({ user_id }, ["user_id"])
         if (!isValid) throw new Error("invalid request payload");
         if (!isValidObjectId(user_id)) throw new Error("invalid request id");

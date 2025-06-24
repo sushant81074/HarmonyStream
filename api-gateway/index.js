@@ -7,7 +7,7 @@ const { router: searchRouter } = require("./routes/app/search.routes");
 const { router: recommendationRouter } = require("./routes/app/recommend.routes");
 const { router: contentRouter } = require("./routes/app/content.routes");
 const { router: playlistRouter } = require("./routes/app/playlist.routes");
-// const { router: playbackRouter } = require("./routes/app/playback.routes");
+const { router: playbackRouter } = require("./routes/app/playback.routes");
 
 const app = express();
 config({ path: ".env" });
@@ -26,6 +26,6 @@ app.use("/api/v1/search", searchRouter);
 app.use("/api/v1/recommendations", recommendationRouter);
 app.use("/api/v1/contents", contentRouter);
 app.use("/api/v1/playlists", playlistRouter);
-// app.use("/api/v1/playbacks", playbackRouter);
+app.use("/api/v1/playbacks", playbackRouter);
 
 app.listen(PORT, () => console.log("api-gateway running on port:", PORT));
